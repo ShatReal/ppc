@@ -1,0 +1,169 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 skin_color_0: hint_color;
+uniform vec4 skin_color_1: hint_color;
+uniform vec4 skin_color_2: hint_color;
+uniform vec4 skin_color_3: hint_color;
+uniform vec4 skin_color_4: hint_color;
+uniform vec4 skin_color_5: hint_color;
+uniform vec4 skin_color_6: hint_color;
+
+uniform vec4 sclera_color_0: hint_color;
+uniform vec4 sclera_color_1: hint_color;
+
+uniform vec4 iris_color_0: hint_color;
+uniform vec4 iris_color_1: hint_color;
+
+uniform vec4 hair_color_0: hint_color;
+uniform vec4 hair_color_1: hint_color;
+uniform vec4 hair_color_2: hint_color;
+uniform vec4 hair_color_3: hint_color;
+uniform vec4 hair_color_4: hint_color;
+uniform vec4 hair_color_5: hint_color;
+
+uniform vec4 outfit_color_0: hint_color;
+uniform vec4 outfit_color_1: hint_color;
+uniform vec4 outfit_color_2: hint_color;
+uniform vec4 outfit_color_3: hint_color;
+uniform vec4 outfit_color_4: hint_color;
+
+uniform vec4 blush_color_0: hint_color;
+uniform vec4 blush_color_1: hint_color;
+
+uniform vec4 teeth_color_0: hint_color;
+uniform vec4 teeth_color_1: hint_color;
+
+uniform vec4 mouth_color_0: hint_color;
+uniform vec4 mouth_color_1: hint_color;
+
+uniform vec4 replace_skin_color: hint_color;
+uniform vec4 replace_sclera_color: hint_color;
+uniform vec4 replace_iris_color: hint_color;
+uniform vec4 replace_hair_color: hint_color;
+uniform vec4 replace_outfit_color: hint_color;
+uniform vec4 replace_blush_color: hint_color;
+uniform vec4 replace_teeth_color: hint_color;
+uniform vec4 replace_mouth_color: hint_color;
+
+const float THRESHOLD = 0.01;
+const float CHANGE_FACTOR = 0.15;
+const float COLOR_SHIFT = 0.03;
+
+vec4 shade(vec4 color, float change_factor, float color_shift){
+	float r = color.r * (1.0 - change_factor);
+	float g = color.g * (1.0 - change_factor);
+	float b = color.b * (1.0 - change_factor) + color_shift;
+	return vec4(r, g, b, color.a);
+}
+
+vec4 tint(vec4 color, float change_factor, float color_shift){
+	float r = color.r + (1.0 - color.r) * change_factor + color_shift;
+	float g = color.g + (1.0 - color.g) * change_factor;
+	float b = color.b + (1.0 - color.b) * change_factor;
+	return vec4(r, g, b, color.a);
+}
+
+void fragment(){
+	vec4 col = texture(TEXTURE, UV);
+	if(distance(col, skin_color_0) < THRESHOLD){
+		COLOR = tint(replace_skin_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, skin_color_1) < THRESHOLD){
+		COLOR = replace_skin_color;
+	} else if (distance(col, skin_color_2) < THRESHOLD){
+		COLOR = shade(replace_skin_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, skin_color_3) < THRESHOLD){
+		COLOR = shade(replace_skin_color, CHANGE_FACTOR * 2.0, COLOR_SHIFT * 2.0);
+	} else if (distance(col, skin_color_4) < THRESHOLD){
+		COLOR = shade(replace_skin_color, CHANGE_FACTOR * 3.0, COLOR_SHIFT * 3.0);
+	} else if (distance(col, skin_color_5) < THRESHOLD){
+		COLOR = shade(replace_skin_color, CHANGE_FACTOR * 4.0, COLOR_SHIFT * 4.0);
+	} else if (distance(col, skin_color_6) < THRESHOLD){
+		COLOR = shade(replace_skin_color, CHANGE_FACTOR * 5.0, COLOR_SHIFT * 5.0);
+	} else if (distance(col, sclera_color_0) < THRESHOLD){
+		COLOR = replace_sclera_color;
+	} else if (distance(col, sclera_color_1) < THRESHOLD){
+		COLOR = shade(replace_sclera_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, iris_color_0) < THRESHOLD){
+		COLOR = replace_iris_color;
+	} else if (distance(col, iris_color_1) < THRESHOLD){
+		COLOR = shade(replace_iris_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, hair_color_0) < THRESHOLD){
+		COLOR = tint(replace_hair_color, CHANGE_FACTOR * 2.0, COLOR_SHIFT * 2.0);
+	} else if (distance(col, hair_color_1) < THRESHOLD){
+		COLOR = tint(replace_hair_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, hair_color_2) < THRESHOLD){
+		COLOR = replace_hair_color;
+	} else if (distance(col, hair_color_3) < THRESHOLD){
+		COLOR = shade(replace_hair_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, hair_color_4) < THRESHOLD){
+		COLOR = shade(replace_hair_color, CHANGE_FACTOR * 2.0, COLOR_SHIFT * 2.0);
+	} else if (distance(col, hair_color_5) < THRESHOLD){
+		COLOR = shade(replace_hair_color, CHANGE_FACTOR * 3.0, COLOR_SHIFT * 3.0);
+	} else if (distance(col, outfit_color_0) < THRESHOLD){
+		COLOR = replace_outfit_color;
+	} else if (distance(col, outfit_color_1) < THRESHOLD){
+		COLOR = shade(replace_outfit_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, outfit_color_2) < THRESHOLD){
+		COLOR = shade(replace_outfit_color, CHANGE_FACTOR * 2.0, COLOR_SHIFT * 2.0);
+	} else if (distance(col, outfit_color_3) < THRESHOLD){
+		COLOR = shade(replace_outfit_color, CHANGE_FACTOR * 3.0, COLOR_SHIFT * 3.0);
+	} else if (distance(col, outfit_color_4) < THRESHOLD){
+		COLOR = shade(replace_outfit_color, CHANGE_FACTOR * 4.0, COLOR_SHIFT * 4.0);
+	} else if (distance(col, blush_color_0) < THRESHOLD){
+		COLOR = replace_blush_color;
+	} else if (distance(col, blush_color_1) < THRESHOLD){
+		COLOR = shade(replace_blush_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, teeth_color_0) < THRESHOLD){
+		COLOR = replace_teeth_color;
+	} else if (distance(col, teeth_color_1) < THRESHOLD){
+		COLOR = shade(replace_teeth_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else if (distance(col, mouth_color_0) < THRESHOLD){
+		COLOR = replace_mouth_color;
+	} else if (distance(col, mouth_color_1) < THRESHOLD){
+		COLOR = shade(replace_mouth_color, CHANGE_FACTOR, COLOR_SHIFT);
+	} else {
+		COLOR = col;
+	}
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/skin_color_0 = Color( 0.996078, 0.952941, 0.752941, 1 )
+shader_param/skin_color_1 = Color( 0.980392, 0.839216, 0.721569, 1 )
+shader_param/skin_color_2 = Color( 0.913725, 0.709804, 0.639216, 1 )
+shader_param/skin_color_3 = Color( 0.729412, 0.458824, 0.415686, 1 )
+shader_param/skin_color_4 = Color( 0.556863, 0.321569, 0.321569, 1 )
+shader_param/skin_color_5 = Color( 0.356863, 0.192157, 0.219608, 1 )
+shader_param/skin_color_6 = Color( 0.258824, 0.141176, 0.2, 1 )
+shader_param/sclera_color_0 = Color( 1, 1, 1, 1 )
+shader_param/sclera_color_1 = Color( 0.701961, 0.72549, 0.819608, 1 )
+shader_param/iris_color_0 = Color( 0.141176, 0.623529, 0.870588, 1 )
+shader_param/iris_color_1 = Color( 0.156863, 0.360784, 0.768627, 1 )
+shader_param/hair_color_0 = Color( 1, 0.835294, 0.254902, 1 )
+shader_param/hair_color_1 = Color( 0.976471, 0.639216, 0.105882, 1 )
+shader_param/hair_color_2 = Color( 0.980392, 0.415686, 0.0392157, 1 )
+shader_param/hair_color_3 = Color( 0.87451, 0.243137, 0.137255, 1 )
+shader_param/hair_color_4 = Color( 0.705882, 0.12549, 0.164706, 1 )
+shader_param/hair_color_5 = Color( 0.45098, 0.0901961, 0.176471, 1 )
+shader_param/outfit_color_0 = Color( 0.780392, 0.690196, 0.545098, 1 )
+shader_param/outfit_color_1 = Color( 0.627451, 0.52549, 0.384314, 1 )
+shader_param/outfit_color_2 = Color( 0.47451, 0.403922, 0.333333, 1 )
+shader_param/outfit_color_3 = Color( 0.352941, 0.305882, 0.266667, 1 )
+shader_param/outfit_color_4 = Color( 0.258824, 0.223529, 0.203922, 1 )
+shader_param/blush_color_0 = Color( 0.960784, 0.627451, 0.592157, 1 )
+shader_param/blush_color_1 = Color( 0.909804, 0.415686, 0.45098, 1 )
+shader_param/teeth_color_0 = Color( 0.890196, 0.901961, 1, 1 )
+shader_param/teeth_color_1 = Color( 0.72549, 0.74902, 0.984314, 1 )
+shader_param/mouth_color_0 = Color( 0.737255, 0.290196, 0.607843, 1 )
+shader_param/mouth_color_1 = Color( 0.47451, 0.227451, 0.501961, 1 )
+shader_param/replace_skin_color = null
+shader_param/replace_sclera_color = null
+shader_param/replace_iris_color = null
+shader_param/replace_hair_color = null
+shader_param/replace_outfit_color = null
+shader_param/replace_blush_color = null
+shader_param/replace_teeth_color = null
+shader_param/replace_mouth_color = null

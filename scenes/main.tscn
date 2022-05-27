@@ -1,0 +1,211 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/portrait.tres" type="Material" id=2]
+[ext_resource path="res://scenes/save.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sprites/base.png" type="Texture" id=5]
+[ext_resource path="res://scenes/main.gd" type="Script" id=11]
+[ext_resource path="res://themes/main.tres" type="Theme" id=14]
+[ext_resource path="res://scenes/items.tscn" type="PackedScene" id=15]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 14 )
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+items = ExtResource( 15 )
+item = ExtResource( 1 )
+save = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.196078, 0.168627, 0.156863, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Top" type="HBoxContainer" parent="VBox"]
+margin_right = 1024.0
+margin_bottom = 562.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Portrait" type="PanelContainer" parent="VBox/Top"]
+margin_top = 53.0
+margin_right = 502.0
+margin_bottom = 509.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ViewportContainer" type="ViewportContainer" parent="VBox/Top/Portrait"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 498.0
+margin_bottom = 452.0
+
+[node name="Viewport" type="Viewport" parent="VBox/Top/Portrait/ViewportContainer"]
+size = Vector2( 448, 448 )
+transparent_bg = true
+gui_disable_input = true
+
+[node name="Base" type="TextureRect" parent="VBox/Top/Portrait/ViewportContainer/Viewport"]
+material = ExtResource( 2 )
+rect_min_size = Vector2( 448, 448 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Buttons" type="VBoxContainer" parent="VBox/Top"]
+margin_left = 506.0
+margin_right = 506.0
+margin_bottom = 562.0
+alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="VBox/Top"]
+margin_left = 510.0
+margin_right = 1012.0
+margin_bottom = 562.0
+size_flags_horizontal = 3
+
+[node name="Items" type="PanelContainer" parent="VBox/Top/Right"]
+margin_right = 502.0
+margin_bottom = 516.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bottom" type="PanelContainer" parent="VBox/Top/Right"]
+margin_top = 520.0
+margin_right = 502.0
+margin_bottom = 562.0
+
+[node name="Flip" type="CheckBox" parent="VBox/Top/Right/Bottom"]
+margin_left = 219.0
+margin_top = 4.0
+margin_right = 283.0
+margin_bottom = 38.0
+size_flags_horizontal = 4
+text = "Flip"
+flat = true
+
+[node name="Colors" type="PanelContainer" parent="VBox/Top"]
+margin_left = 1016.0
+margin_top = 277.0
+margin_right = 1024.0
+margin_bottom = 285.0
+size_flags_vertical = 4
+
+[node name="VBox" type="VBoxContainer" parent="VBox/Top/Colors"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 4.0
+margin_bottom = 4.0
+alignment = 1
+
+[node name="Bottom" type="HBoxContainer" parent="VBox"]
+margin_top = 566.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="SaveLoad" type="Button" parent="VBox/Bottom"]
+margin_right = 253.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+text = "Save / Load"
+
+[node name="Download" type="Button" parent="VBox/Bottom"]
+margin_left = 257.0
+margin_right = 510.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+text = "Download Image"
+
+[node name="Name" type="LineEdit" parent="VBox/Bottom"]
+margin_left = 514.0
+margin_right = 767.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+placeholder_text = "Enter name here"
+caret_blink = true
+
+[node name="Random" type="Button" parent="VBox/Bottom"]
+margin_left = 771.0
+margin_right = 1024.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+text = "Random"
+
+[node name="SaveLoad" type="PopupPanel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -256.0
+margin_top = -150.0
+margin_right = 256.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 512, 300 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBox" type="VBoxContainer" parent="SaveLoad"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Slots" type="ScrollContainer" parent="SaveLoad/VBox"]
+margin_right = 512.0
+margin_bottom = 262.0
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="SaveLoad/VBox/Slots"]
+margin_right = 512.0
+margin_bottom = 262.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="SaveLoad/VBox"]
+margin_top = 266.0
+margin_right = 512.0
+margin_bottom = 300.0
+
+[node name="NewSave" type="Button" parent="SaveLoad/VBox/Buttons"]
+margin_right = 254.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+text = "New Save"
+
+[node name="DeleteAll" type="Button" parent="SaveLoad/VBox/Buttons"]
+margin_left = 258.0
+margin_right = 512.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+text = "Delete All"
+
+[connection signal="toggled" from="VBox/Top/Right/Bottom/Flip" to="." method="_on_Flip_toggled"]
+[connection signal="pressed" from="VBox/Bottom/SaveLoad" to="." method="_on_SaveLoad_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Download" to="." method="_on_Download_pressed"]
+[connection signal="pressed" from="VBox/Bottom/Random" to="." method="_on_Random_pressed"]
+[connection signal="pressed" from="SaveLoad/VBox/Buttons/NewSave" to="." method="_on_NewSave_pressed"]
+[connection signal="pressed" from="SaveLoad/VBox/Buttons/DeleteAll" to="." method="_on_DeleteAll_pressed"]
