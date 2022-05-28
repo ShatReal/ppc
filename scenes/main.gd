@@ -96,10 +96,11 @@ func _ready() -> void:
 			var s := save.instance()
 			s.text = "%s - %04d/%02d/%02d %02d:%02d:%02d" % [n, date.year, date.month, date.day, date.hour, date.minute, date.second]
 			slots.add_child(s)
+			slots.move_child(s, 0)
 			s.connect("overwrite", self, "on_save_overwrite", [s])
 			s.connect("load_requested", self, "on_save_load", [s])
 			s.connect("delete", self, "on_save_delete", [s])
-			saves.append(file_name)
+			saves.push_front(file_name)
 		file_name = dir.get_next()
 	if OS.get_name() == "HTML5" and OS.has_feature("JavaScript"):
 		_define_js()
@@ -210,6 +211,9 @@ func save_info() -> void:
 	s.text = "%s - %04d/%02d/%02d %02d:%02d:%02d" % [name_to_use, date.year, date.month, date.day, date.hour, date.minute, date.second]
 	slots.add_child(s)
 	slots.move_child(s, 0)
+	s.connect("overwrite", self, "on_save_overwrite", [s])
+	s.connect("load_requested", self, "on_save_load", [s])
+	s.connect("delete", self, "on_save_delete", [s])
 
 
 func on_save_overwrite(s: MenuButton) -> void:
@@ -268,6 +272,9 @@ func _on_Random_pressed() -> void:
 		var index := randi() % count
 		items_panel.get_child(i).get_node("Grid").get_child(index).select(true)
 		base.get_child(i).texture = items_panel.get_child(i).get_node("Grid").get_child(index).get_node("TextureButton").texture_normal
+		for child in items_panel.get_child(i).get_node("Grid").get_children():
+			child.select(false)
+		items_panel.get_child(i).get_node("Grid").get_child(index).select(true)
 
 
 func _on_Download_pressed() -> void:

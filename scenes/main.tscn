@@ -59,6 +59,8 @@ margin_bottom = 452.0
 [node name="Viewport" type="Viewport" parent="VBox/Top/Portrait/ViewportContainer"]
 size = Vector2( 448, 448 )
 transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
 gui_disable_input = true
 
 [node name="Base" type="TextureRect" parent="VBox/Top/Portrait/ViewportContainer/Viewport"]
